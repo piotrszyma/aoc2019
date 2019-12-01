@@ -1,9 +1,4 @@
-import math
-
-fuel_needed = 0
-
-with open('input', 'r') as data:
-    for line in data:
-        fuel_needed += math.floor(int(line) / 3) - 2
+with open('input', 'r') as file:
+    fuel_needed = sum(int(line) // 3 - 2 for line in file)
 
 print(fuel_needed)
