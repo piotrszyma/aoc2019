@@ -1,6 +1,7 @@
 import dataclasses
 import itertools
 import collections
+import operator
 
 from typing import Callable, Mapping
 
@@ -128,12 +129,12 @@ def parse_with_args(program, stdin=None):
 
 
 possible_options = range(5)
-result = -1
+best = (-1, None)
 
-for combination in itertools.permutations(possible_options):
+for perm in itertools.permutations(possible_options):
     current_result = 0
-    for amp_id in combination:
+    for amp_id in perm:
         [current_result] = parse_with_args(program, [amp_id, current_result])
-    result = max(result, current_result)
+    best = max(best, [current_result, perm], key=operator.itemgetter(0))
 
-print(result)
+print(best)
